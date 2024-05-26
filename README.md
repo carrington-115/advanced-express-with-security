@@ -16,3 +16,4 @@
 ## Using template engines
 
 - We use app.engine to pass templates to the app
+- When using databases, it is good to have a test, production, and development database
