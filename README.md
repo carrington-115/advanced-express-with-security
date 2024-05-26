@@ -17,3 +17,24 @@
 
 - We use app.engine to pass templates to the app
 - When using databases, it is good to have a test, production, and development database
+
+## Mongoose
+
+- Installation
+
+```bash
+npm install --save mongoose
+```
+
+- **Connecting with the MongoDB client**:
+
+```javascript
+const mongoose = require("mongoose");
+
+module.exports.connectDatabase = async (dbUrl) =>
+  mongoose.connect(dbUrl, { useNewUrlParser: true });
+
+// to run the code
+const { connectDatabase } = require("./db");
+connnectDatabase.connect(dbUrl).then().catch();
+```
