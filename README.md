@@ -73,3 +73,30 @@ console.log("hello world");
 ```bash
 npm install --save bcrypt
 ```
+
+- **Initialising bcrypt**: import bcrypt with the require function, then pass the salt rounds. Then we have to write 2 pieces of code for the hashing of the password and the comparing of the password.
+
+```javascript
+const bcrypt = require("bcrypt");
+
+// getting the hash
+userSchema.pre("save", async function preSave(next) {
+  const user = this;
+  if (!user.isModified("password")) return next();
+
+  try {
+    const hash = await bcrypt.hash(user.password, SALT_ROUNDS);
+    user.password = hash;
+    return next();
+  } catch (error) {
+    return next(err);
+  }
+});
+
+// compare function
+userSchema.methods.comparePassword = async function comparePassword(candidate) {
+  return bcrypt.compare(candidate, this.password);
+};
+
+module.exports = mongoose.model("User", userSchema);
+```

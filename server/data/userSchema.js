@@ -36,6 +36,7 @@ const userSchema = mongoose.Schema(
   }
 );
 
+// getting the hash
 userSchema.pre("save", async function preSave(next) {
   const user = this;
   if (!user.isModified("password")) return next();
@@ -48,5 +49,10 @@ userSchema.pre("save", async function preSave(next) {
     return next(err);
   }
 });
+
+// compare function
+userSchema.methods.comparePassword = async function comparePassword(candidate) {
+  return bcrypt.compare(candidate, this.password);
+};
 
 module.exports = mongoose.model("User", userSchema);
