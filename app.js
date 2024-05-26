@@ -4,13 +4,13 @@ const app = express();
 const fs = require("fs");
 const util = require("util");
 const readFileFs = util.promisify(fs.readFile);
-const marked = require("marked");
+const { marked } = require("marked");
 
 app.engine("md", async (filePath, options, callback) => {
   try {
-    const content = await readFileFs(filePath);
-    const rendered = content.toString().replace("{headline}", options.headline);
-    return callback(null, marked(rendered));
+    const content = await readFileFs(filePath, "utf8");
+    // const rendered = content.toString().replace("{headline}", options.headline);
+    return callback(null, marked(content));
   } catch (error) {
     return callback(error);
   }

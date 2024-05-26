@@ -2,4 +2,4 @@
 
 - List Item 1
 - **List Itme 2**
-  _**List Item 3** _
+- **_List Item 3_**
