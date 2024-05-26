@@ -38,3 +38,38 @@ module.exports.connectDatabase = async (dbUrl) =>
 const { connectDatabase } = require("./db");
 connnectDatabase.connect(dbUrl).then().catch();
 ```
+
+- **Data Schema in Mongoose**: Mongoose allows the database developers to create schemas for their databases. This can be done using the mongoose schema method from mongoose. When using emails in the schema, we can use the email validator module to check if our email is valid or not.
+
+```javascript
+const mongoose = require("mongoose");
+
+const userSchema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      minLength: 3,
+      require: true,
+      index: { unique: true },
+      trim: true,
+    },
+  },
+  { timeStamp: true }
+);
+
+module.exports = mongoose.model("User", userSchema);
+```
+
+## Security in the Node application
+
+### **Using bcrypt to Hash and Compare Passwords**: It is bad practice to store password in plaintext. So we use a tool to store the password as a hash. We use a tool called bcrypt for this. Bycrypt hash has the structure: `version | Rounds | Salt | Hash`. To find out if the a password is correct, bcrypt gives a function that compares the hash of the entered password to the stored hash.
+
+```javascript
+console.log("hello world");
+```
+
+- **Installing bcrypt**:
+
+```bash
+npm install --save bcrypt
+```
