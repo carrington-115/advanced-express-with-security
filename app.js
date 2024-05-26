@@ -9,14 +9,14 @@ const { marked } = require("marked");
 app.engine("md", async (filePath, options, callback) => {
   try {
     const content = await readFileFs(filePath, "utf8");
-    // const rendered = content.toString().replace("{headline}", options.headline);
-    return callback(null, marked(content));
+    const rendered = content.toString().replace("{headline}", options.headline);
+    return callback(null, marked(rendered));
   } catch (error) {
     return callback(error);
   }
 });
 app.set("view engine", "md");
-app.set("views", "./views");
+app.set("views", "./server/views");
 const handleFunction = (req, res) => {
   res.render("index", { headline: "Hello World" });
 };
