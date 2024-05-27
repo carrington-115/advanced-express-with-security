@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login and Sign up users</title>
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+      }
+      section {
+        display: flex;
+        flex-direction: column;
+        background-color: black;
+        padding: 2cm 3cm;
+        gap: 1cm;
+      }
+      .login-section,
+      .signup-section {
+        background-color: white;
+        color: black;
+        padding: 1cm;
+        width: 40vw;
+      }
+      .login-section form,
+      .signup-section form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      form input {
+        padding: 5px 10px;
+      }
+      form button {
+        background-color: black;
+        color: white;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <div class="login-section">
+        <form action="/user/registration" method="post">
+          <h1>Login</h1>
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="email"
+            aria-label="Enter your email"
+          />
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="password"
+            aria-label="Enter your password"
+          />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+      <div class="signup-section">
+        <h1>Sign up</h1>
+        <form action="/user/registration" method="post">
+          <label for="username">Name:</label>
+          <input
+            type="text"
+            name="username"
+            placeholder="username"
+            aria-label="Enter your user name"
+          />
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            name="email"
+            placeholder="email"
+            aria-label="Enter your email"
+          />
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            name="password"
+            placeholder="password"
+            aria-label="Enter your password"
+          />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>
