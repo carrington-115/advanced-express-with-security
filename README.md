@@ -116,3 +116,10 @@ app.use(cookieParser()); // req.cookie ==> to get the cookie header
 ```
 
 - Express session is used to manage express session data. `express-session` gives the ability to store the data on the backend. Express session uses `connect-mongo` to connect with a mongodb database.
+
+**_modules needed_**
+
+- express
+- cookie-parser
+- express-session
+- connect-mongo
