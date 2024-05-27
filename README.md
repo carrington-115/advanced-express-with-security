@@ -82,7 +82,7 @@ const bcrypt = require("bcrypt");
 // getting the hash
 userSchema.pre("save", async function preSave(next) {
   const user = this;
-  if (!user.isModified("password")) return next();
+  if (!user.isModified("passworcleard")) return next();
 
   try {
     const hash = await bcrypt.hash(user.password, SALT_ROUNDS);

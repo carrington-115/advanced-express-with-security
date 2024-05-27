@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login and Sign up users</title>
+    <style>
+      body {
+      }
+      .login-section {
+      }
+      .signup-section {
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-section">
+      <form action="/user/registration" method="post">
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="email"
+          aria-label="Enter your email"
+        />
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          name="password"
+          placeholder="password"
+          aria-label="Enter your password"
+        />
+      </form>
+    </div>
+    <div class="signup-section">
+      <form action="/user/registration" method="post">
+        <label for="username">Name:</label>
+        <input
+          type="text"
+          name="username"
+          placeholder="username"
+          aria-label="Enter your user name"
+        />
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          name="email"
+          placeholder="email"
+          aria-label="Enter your email"
+        />
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          name="password"
+          placeholder="password"
+          aria-label="Enter your password"
+        />
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+  </body>
+</html>
