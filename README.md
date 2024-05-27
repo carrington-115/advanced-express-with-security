@@ -101,6 +101,18 @@ userSchema.methods.comparePassword = async function comparePassword(candidate) {
 module.exports = mongoose.model("User", userSchema);
 ```
 
-- For authenticating users, one of the tools we can use is bcrypt since it provides a method to hash the password then compare the user password with the previous password.
+- For authenticating users, one of the tools we can use is bcrypt since it provides a method to hash the password then compare the user password with the previous password. We also used the email-validator module to check if the email was valid.
 
-- **Cookies and Sessions**:
+- **Cookies and Sessions**: Cookies and sessions are one of the building blocks for making authentication secured on the app, server, and database.
+
+- We can set certain parameters for cookie: `id, expiry date, security (if we want to allow the client to read the cookie)`.
+- To use cookie we need the `cookie-parser`. It is a 3rd party package, but it is available in express. When put on the right position, it allows the server to read the cookie header from the routes using `req.cookie`
+
+```javascript
+const cookieParser = require("cookie-parser");
+const express = require("express");
+const app = express();
+app.use(cookieParser()); // req.cookie ==> to get the cookie header
+```
+
+- Express session is used to manage express session data. `express-session` gives the ability to store the data on the backend. Express session uses `connect-mongo` to connect with a mongodb database.
