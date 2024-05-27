@@ -100,3 +100,7 @@ userSchema.methods.comparePassword = async function comparePassword(candidate) {
 
 module.exports = mongoose.model("User", userSchema);
 ```
+
+- For authenticating users, one of the tools we can use is bcrypt since it provides a method to hash the password then compare the user password with the previous password.
+
+- **Cookies and Sessions**:
