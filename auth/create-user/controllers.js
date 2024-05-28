@@ -12,8 +12,8 @@ const registerUser = async (req, res, db) => {
         .status(200)
         .json({ success: true, message: "User already exists" });
     }
-    const salts = bcrypt.genSalt(12);
-    const passwordHash = await bcrypt.hash(password, salts);
+    // const salts = bcrypt.genSalt(12);
+    const passwordHash = await bcrypt.hash(password, 12);
     await db.collection("users").insertOne({
       name: name,
       email: email,
@@ -30,8 +30,8 @@ const registerUser = async (req, res, db) => {
 const loginUsers = async (req, res, db) => {
   try {
     const { email, password } = req.body;
-    const salts = bcrypt.genSalt(12);
-    const passFromBcrypt = await bcrypt.hash(password, salts);
+    // const salts = bcrypt.genSalt(12);
+    const passFromBcrypt = await bcrypt.hash(password, 12);
     const user = await db.collection("users").findOne({ email: email });
     const dbPassword = user?.password;
     const passwordMatch = await bcrypt.compare(dbPassword, passFromBcrypt);
