@@ -136,4 +136,22 @@ passport.initialise();
 passport.session();
 ```
 
-- When dealing with authentication from a local database, we need a tool to interact passport with that database, for this we use `npm install --save passport-local`
+- When dealing with authentication from a local database, we need a tool to interact passport with that database, for this we use `npm install --save passport-local`.
+- After installing this tool, we have to use we have to setup a local strategy to use the passport elements in the passport middleware. In this middleware, we then write and async function that can authenticate the user with the database.
+- The next step is to write a serialization and deserialization the user data with passport.
+
+```javascript
+const passport = require("passport");
+passport.serializeUser((user, done) => {
+  return done(null, user._id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await accountsCollection.findOne({ _id: id });
+    return done(null, user);
+  } catch (error) {
+    return done(error);
+  }
+});
+```
