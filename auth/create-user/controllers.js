@@ -31,19 +31,15 @@ const loginUsers = async (req, res, db) => {
   try {
     const { email, password } = req.body;
     // const salts = bcrypt.genSalt(12);
-    const passFromBcrypt = await bcrypt.hash(password, 12);
     const user = await db.collection("users").findOne({ email: email });
     const dbPassword = user?.password;
-    const passwordMatch = await bcrypt.compare(dbPassword, passFromBcrypt);
-    if (passwordMatch) {
-      return res
-        .status(200)
-        .json({ success: true, message: "User has logged in" });
-    } else {
-      return res
-        .status(200)
-        .json({ success: false, message: "Password does not match" });
+    const passwordMatch = await bcrypt.compare(password, dbPassword);
+    if (!passwordMatch) {
+      return res.status(400).json({ message: "Invalid credentials" });
     }
+    return res
+      .status(200)
+      .json({ success: true, message: "User has logged in" });
   } catch (error) {
     console.error(error);
   }
