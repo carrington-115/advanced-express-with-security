@@ -126,7 +126,7 @@ app.use(cookieParser()); // req.cookie ==> to get the cookie header
 
 ### **Passport in Nodejs**
 
-- Passport is the most used package for nodejs. It provides an authentication function that uses strategies to authenticate the user.
+- Passport is the most used package for nodejs. It provides an authentication function that uses strategies to authenticate the user. To install passport `npm install --save passport`
 - passport does not only makes the authentication process easy, but it also handles storing the login info in the cookies and it does not have to be done manually by the programmer.
 - Passport provides 2 functions that make the authentication process easy
 
@@ -135,3 +135,5 @@ const passport = require("passport");
 passport.initialise();
 passport.session();
 ```
+
+- When dealing with authentication from a local database, we need a tool to interact passport with that database, for this we use `npm install --save passport-local`

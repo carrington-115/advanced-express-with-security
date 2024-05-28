@@ -1,4 +1,35 @@
 const passport = require("passport");
+const localStrategy = require("passport-local").Strategy;
+const { MongoClient } = require("mongodb");
+const client = new MongoClient(process.env.PORT);
+const accountsCollection = client.db("users").collection("accounts");
+const bcrypt = require("bcrypt");
+
+passport.use(
+  new localStrategy(
+    { usernameField: "email" },
+    async (username, password, callback) => {
+      try {
+        const user = await accountsCollection.findOne({ email: username });
+        if (!user) {
+          return callback(null, false, {
+            message: "Invalid username or password",
+          });
+        }
+
+        const passwordOk = await bcrypt.compare(password, user.password);
+        if (!passwordOk) {
+          return callback(null, false, {
+            message: "invalid username and password",
+          });
+        }
+        return callback(null, user);
+      } catch (error) {
+        return callback(error);
+      }
+    }
+  )
+);
 
 module.exports = {
   initialize: passport.initialize(),
