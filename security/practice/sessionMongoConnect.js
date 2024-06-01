@@ -44,13 +44,17 @@ app.get("/set-session", (req, res) => {
 
 app.get("/get-session", (req, res) => {
   const username = req.session.username;
-  if (username) res.status(200).json({ success: true, username: username });
+  if (username) {
+    return res.status(200).json({ success: true, username: username });
+  }
   res.send("No session data");
 });
 
 app.get("/destroy-session", (req, res) => {
   req.session.destroy((error) => {
-    if (error) res.send("An error occured");
+    if (error) {
+      return res.send("An error occured");
+    }
     res.send("The session data is destroyed");
   });
 });
