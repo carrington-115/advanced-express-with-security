@@ -27,6 +27,11 @@ app.get("/get-cookie", (req, res) => {
   res.send("The cookie data has been received");
 });
 
+app.get('/clear-cookie', (req, res) => {
+    res.clearCookie('username')
+    res.send("The cookie has been cleared")
+})
+
 app.listen(process.env.PORT, (error) => {
   if (error) console.error(error);
   console.log("The app is running on port", process.env.PORT);
