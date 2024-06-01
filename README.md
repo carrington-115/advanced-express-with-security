@@ -157,4 +157,34 @@ passport.deserializeUser(async (id, done) => {
 ```
 
 - Mongoose and passport maintains a global state thereby distributing their models, variables, functions when the moduled is imported anywhere in the project.
--
+
+### How to setup the MongoDB connection with nodejs and express
+
+- First import all the resources need: mongodb client, express, express session, cookie-parser, connect-mongo
+
+- Set the client and dbName variables
+- Set the middleware with app.use and pass all the middlewares
+
+```javascript
+const { MongoClient } = require("mongodb");
+const client = new MongoClient(dbUrl);
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
+const MongoStore = require("mongo-connect");
+const express = require("express");
+const app = express();
+
+app.use([
+  express.json(),
+  express.urlencoded(
+    { extended: true },
+    session({
+      secret: "my secret key",
+      resave: false,
+      saveUninitialized: true,
+      store: MongoStore.create({ client: client, dbName: dbName }),
+      cookie: { secure: false },
+    })
+  ),
+]);
+```
