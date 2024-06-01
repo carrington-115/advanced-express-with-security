@@ -1,36 +1,37 @@
 require("dotenv").config({ path: "../../.env" });
 const express = require("express");
-// const { MongoClient } = require("mongodb");
-// const client = new MongoClient(process.env.MONGODB_API);
 const app = express();
-const cookieParser = require("cookie-parser");
+const session = require("express-session");
 
 // pass all the middlewares
 app.use([
   express.json(),
   express.urlencoded({ extended: true }),
-  cookieParser(),
+  session({
+    secret: "my secret key",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false },
+  }),
 ]);
 
-app.get("/set-cookie", (req, res) => {
-  res.cookie("username", "Mark Carrington", { maxAge: 900000, httpOnly: true });
-  res.send("Cookie has been sent");
+app.get("/set-session", (req, res) => {
+  req.session.username = "mark carrington";
+  res.send("The session has been set");
 });
-
-app.get("/get-cookie", (req, res) => {
-  const username = req.cookies.username;
+app.get("/get-session", (req, res) => {
+  const username = req.session.username;
   if (username) {
-    return res
-      .status(200)
-      .json({ success: true, data: { username: username } });
+    return res.status(200).json({ success: true, username: username });
   }
-  res.send("The cookie data has been received");
+  res.send("No session data here");
 });
-
-app.get('/clear-cookie', (req, res) => {
-    res.clearCookie('username')
-    res.send("The cookie has been cleared")
-})
+app.get("/destroy-session", (req, res) => {
+  req.session.destroy((error) => {
+    if (error) res.send("There was an error");
+    res.send("The session has been removed");
+  });
+});
 
 app.listen(process.env.PORT, (error) => {
   if (error) console.error(error);
