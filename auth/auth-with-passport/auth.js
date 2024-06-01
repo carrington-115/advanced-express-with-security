@@ -1,7 +1,7 @@
 const passport = require("passport");
 const localStrategy = require("passport-local").Strategy;
 const { MongoClient } = require("mongodb");
-const client = new MongoClient(process.env.PORT);
+const client = new MongoClient(process.env.MONGODB_API);
 const accountsCollection = client.db("users").collection("accounts");
 const bcrypt = require("bcrypt");
 

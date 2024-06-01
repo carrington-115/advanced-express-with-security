@@ -155,3 +155,6 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 ```
+
+- Mongoose and passport maintains a global state thereby distributing their models, variables, functions when the moduled is imported anywhere in the project.
+-
