@@ -188,3 +188,14 @@ app.use([
   ),
 ]);
 ```
+
+### Combining all the packages and using with passport
+
+- To work with passport we need the following packages
+
+1. mongodb
+2. express
+3. express-session
+4. cookie-parser and body-parser
+5. passport-local
+6. mongo-connect
