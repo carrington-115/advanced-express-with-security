@@ -61,6 +61,20 @@ passport.deserializeUser((id, done) => {
   done(null, user);
 });
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the application");
+});
+
+app.get("/login", (req, res) => {
+  res.send(`
+    <form method="post" action="/login">
+      <input type="name" name="username" />
+      <input type="password" name="password" />
+      <input type="submit" value="submit" />
+    </form>
+  `);
+});
+
 app.post(
   "/login",
   passport.authenticate("local", { failureRedirect: "/login" }),
@@ -74,12 +88,15 @@ app.get("/profile", (req, res) => {
     res.redirect("/login");
   }
   const { username } = req.user;
-  res
-    .status(200)
-    .json({
-      success: true,
-      message: `The user of ${username} has been authenticated`,
-    });
+  res.status(200).json({
+    success: true,
+    message: `The user of ${username} has been authenticated`,
+  });
+});
+
+app.get("/logout", (req, res) => {
+  req.logout();
+  res.redirect();
 });
 
 app.listen(process.env.PORT, (error) => {
