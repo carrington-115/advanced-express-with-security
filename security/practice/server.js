@@ -95,8 +95,12 @@ app.get("/profile", (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-  req.logout();
-  res.redirect();
+  req.logout((err) => {
+    if (err) {
+      return res.send(err);
+    }
+    res.redirect("/");
+  });
 });
 
 app.listen(process.env.PORT, (error) => {
