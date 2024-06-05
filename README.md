@@ -199,3 +199,46 @@ app.use([
 4. cookie-parser and body-parser
 5. passport-local
 6. mongo-connect
+
+### Sending files on a form
+
+- First, on the form attribute `enctype` and set it to `multipart/form-data`
+
+```html
+<form actions="" method="post" enctype="multipart/form-data"></form>
+```
+
+- To hanlde these files in the form in express, we have to use a middle and we can use that from an npm package `multer`.
+
+```bash
+npm install multer
+```
+
+- multer allows the configuration of file size, for example
+
+```javascript
+const multer = require("multer");
+const upload = multer({
+  limits: {
+    fileSize: 4 * 1024 * 1024,
+  },
+});
+
+module.exports = multer;
+```
+
+- We can now import this middleware in the file to be used and pass it to the route.
+
+```javascript
+const multer = require("../middlewares");
+const express = require("express");
+const app = express();
+
+app.post('/registration',multer.single(<fieldname>) ,(req, res)=>{
+  res.end()
+})
+
+```
+
+- When dealing with files like images, we must also handle the file extension carefully to make sure that it fits the app backend.
+- We can use the `sharp` module when dealing with images. This allows us to resize the image and convert the image to png since it is the best to work with on the internet.
