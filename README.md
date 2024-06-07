@@ -242,3 +242,38 @@ app.post('/registration',multer.single(<fieldname>) ,(req, res)=>{
 
 - When dealing with files like images, we must also handle the file extension carefully to make sure that it fits the app backend.
 - We can use the `sharp` module when dealing with images. This allows us to resize the image and convert the image to png since it is the best to work with on the internet.
+
+### Advices when planning to deploy a nodejs application
+- Environment variables have a great effect on the node memory. So we must differentiate them for production and development
+- Nodejs is single threaded and synchronous so it is best practiceto use asynchronous methods when building a nodejs application
+- When a nodejs application is in production, the application runs differently and uses more memory. We must add a package to the root of the project to compress the size of the package. The name of the package is `compression`. To install, just run `npm install compression` and for usage, just pass to the express `app.use()` as a middleware
+
+``` javascript
+const compress = require('compression');
+const express = require('express');
+const app = express()
+
+# adding to app.use()
+app.use(compress())
+
+```
+- We must always handle all errors and exceptions in a node application or else this can cause the application to crash when in production.
+- In production, it is bad to use `console.log()` since it is synchronous. We will use another package `bunyan`. To install, `npm install --save bunyan`. With bunyan, we can separate the different loggers for development, test, and production.
+- We can use the nodejs in built module `cluster` to help improve our nodejs application during production. We can combine this cluster module with the node os module to put the CPUs in more organised work.
+
+
+- Before deploying an application, it must some security measures. Express has some security checks that can be used but we can use NGINX for that purpose. We must make sure that all the dependencies are secured; to do this, run `npm audit`
+- To add security to express, we can use the helmet. It provides some middleware to prevent possible attacks on an application. We can use install helmet with npm `npm install helmet`. Then we can add it in express `app.use(helmet())` as middleware.
+- We can deploy our application to a server using PM2. This is good for small projects. First we have to install pm2 globally `npm install -g pm2`. PM2 requires a configuration file for the deployment called `ecosystem.config.js`.
+- After setting the config file we have to run the follow commands
+``` bash
+pm2 deploy production
+
+pm2 deploy production
+
+```
+
+- We can run `pm2 status` to check the status of the pm2 application. We can also run `pm2 save` to reserve the setup. Then we run `pm2 startup`
+- We can use NGINX to do reverse proxies and install all SSL/TLS certificates. When we setup the NGINX, we have to reset the express session so it run in production. we have to make the set parameters like: secret, name, proxy, then make the cookie security `true`. 
+
+
